@@ -8,7 +8,7 @@ import customerRoute from './api_Customer_Details/route/cs_route_CustomerDetails
 const totalCPUs = cpus().length;
 
 if (cluster.isPrimary) {
-  
+
   console.log(`Number of CPUs is ${totalCPUs}`);
   console.log(`Master ${process.pid} is running`);
 
@@ -27,6 +27,9 @@ if (cluster.isPrimary) {
   userRoute(app);
   customerRoute(app);
   const port = config.default.port;
+  app.get("/",(req,res)=>{
+    res.send("<h2>Hi There !!! </h2>");
+  })
   app.listen(port, () => {
     console.log(`Worker ${process.pid} started on port ${config.default.port}`);
   });
