@@ -39,6 +39,9 @@ if (cluster.isPrimary) {
         })
         .catch(error => console.error("Failed to load customer route", error));
   }
+  app.get("/",(req,res)=>{
+    res.send("<h2>Hi There !!! </h2>");
+  })
   const port = config.default.port;
   app.listen(port, () => {
     console.log(`Worker ${process.pid} started on port ${config.default.port}`);
