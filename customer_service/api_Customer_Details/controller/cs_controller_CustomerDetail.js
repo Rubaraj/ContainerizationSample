@@ -1,4 +1,6 @@
-import db from '../../config/db.config.js';
+// import db from '../../../config/db.config.js';
+
+import db from '../../../Common/config/db.config.js';
 
 export const insertData = async (req, res) => {
   try {
@@ -10,3 +12,4 @@ export const insertData = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+

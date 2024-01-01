@@ -2,11 +2,12 @@
   "name": "containerizationsample",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "./Common/server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node ./Common/server.js",
+    "dev": "nodemon ./Common/server.js local",
+    "prod": "node ./Common/server.js"
   },
   "keywords": [],
   "author": "",

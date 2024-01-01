@@ -1,9 +1,8 @@
+
 import cluster from 'cluster';
 import { cpus } from 'os';
 import express from 'express';
 import * as config from './config/config.js'
-import userRoute from './api_User_Details/route/cs_route_UserDetails.js'
-import customerRoute from './api_Customer_Details/route/cs_route_CustomerDetails.js'
 
 const totalCPUs = cpus().length;
 
@@ -24,12 +23,23 @@ if (cluster.isPrimary) {
 } else {
   const app = express();
   app.use(express.json());
-  userRoute(app);
-  customerRoute(app);
+
+  if (process.argv[2] == "user_service" || process.argv[2] == "local") {
+    import('../user_service/api_User_Details/route/cs_route_UserDetails.js')
+        .then(userRoute => {
+          userRoute.default(app)
+        })
+        .catch(error => console.error("Failed to load user route", error));
+  }
+
+  if (process.argv[2] == "customer_service" || process.argv[2] == "local") {
+    import('../customer_service/api_Customer_Details/route/cs_route_CustomerDetails.js')
+        .then(customerRoute => {
+          customerRoute.default(app)
+        })
+        .catch(error => console.error("Failed to load customer route", error));
+  }
   const port = config.default.port;
-  app.get("/",(req,res)=>{
-    res.send("<h2>Hi There !!! </h2>");
-  })
   app.listen(port, () => {
     console.log(`Worker ${process.pid} started on port ${config.default.port}`);
   });

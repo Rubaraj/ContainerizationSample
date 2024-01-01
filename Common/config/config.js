@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import assert from 'assert';
 
 let config;
-let test = 123
 dotenv.config();
 const  {
 PORT,
@@ -16,6 +15,8 @@ STORAGE_BUCKET,
 MESSAGING_SENDER_ID,
 APP_ID
 } = process.env;
+
+console.log(PORT)
 
 assert(PORT,'PORT is required')
 assert(HOST,'HOST is required')
@@ -33,4 +34,3 @@ export default config = {
         appId: APP_ID
     }
 };
-export {test}

@@ -1,11 +1,19 @@
+
 version: '3'
 services:
-  node-api-app:
-    build: .
+  user_service:
+    build: 
+      # context: .
+      dockerfile: ./Dockerfile
+      args:
+        SERVICE_DIR: user_service
     ports:
       - "8002:4000"
-    volumes:
-      - ./:/app:ro
-      - /app/node_modules
-    env_file:
-      - ./.env
+  customer_service:
+    build: 
+      # context: .
+      dockerfile: ./Dockerfile
+      args:
+        SERVICE_DIR: customer_service
+    ports:
+      - "8001:4000"
