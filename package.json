@@ -5,9 +5,9 @@
   "main": "./Common/server.js",
   "type": "module",
   "scripts": {
-    "start": "node ./Common/server.js",
+    "start": "node ./Common/server.js local",
     "dev": "nodemon ./Common/server.js local",
-    "prod": "node ./Common/server.js"
+    "prod": "node ./Common/server.js local"
   },
   "keywords": [],
   "author": "",

@@ -16,7 +16,6 @@ MESSAGING_SENDER_ID,
 APP_ID
 } = process.env;
 
-console.log(PORT)
 
 assert(PORT,'PORT is required')
 assert(HOST,'HOST is required')

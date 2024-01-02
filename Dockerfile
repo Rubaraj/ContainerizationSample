@@ -1,20 +1,9 @@
-# FROM node:20
-# WORKDIR /app
-# #why package.json first ?
-# COPY package.json .
-# RUN npm install
-# COPY . ./
-# ENV PORT=8002
-# EXPOSE $PORT
-# CMD ["npm","run","dev"]
-
 # Base Image
 FROM node:20
 
 # Use build arguments to specify the service
 ARG SERVICE_DIR
-
-# RUN echo $NEWCMD
+ARG SERVICE_PORT
 
 # Create app directory
 WORKDIR /app
@@ -24,16 +13,14 @@ COPY package.json .
 RUN npm install
 
 # Bundle app source
-# COPY . ./
 COPY ./Common /app/Common
-COPY .env /app
 COPY ./${SERVICE_DIR} /app/${SERVICE_DIR}
-# COPY . ./${SERVICE_DIR}
-# COPY ${SERVICE_DIR}/ .
+
+RUN echo ${SERVICE_PORT}
 
 # Expose port and start application
-EXPOSE 4000
+EXPOSE ${SERVICE_PORT}
 
-# CMD ["node", "server.js"]
-# CMD ["npm","run","prod"]
-CMD [ "node","./Common/server.js","${SERVICE_DIR}" ]
+ENV VALSRR = ${SERVICE_DIR}
+
+CMD ["node", "./Common/server.js"]
