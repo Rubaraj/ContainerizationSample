@@ -3,3 +3,49 @@ Dockerfile
 .dockerignore
 .git
 .gitignore
+
+
+
+const array = [
+  { id: "dndnode_0" },
+  { id: "dndnode_1" },
+  { id: "dndnode_2" },
+  { id: "dndnode_3" }
+];
+
+const connections = [
+  { source: 'dndnode_0', target: 'dndnode_1' },
+  { source: 'dndnode_0', target: 'dndnode_2' },
+  { source: 'dndnode_2', target: 'dndnode_3' }
+];
+
+function buildTree(array, connections) {
+  const treeMap = new Map();
+
+  // Populate treeMap with nodes
+  array.forEach(node => {
+    treeMap.set(node.id, { ...node, children: [] });
+  });
+
+  // Link nodes based on connections
+  connections.forEach(connection => {
+    const sourceNode = treeMap.get(connection.source);
+    const targetNode = treeMap.get(connection.target);
+    if (sourceNode && targetNode) {
+      sourceNode.children.push(targetNode);
+    }
+  });
+
+  // Find and return root nodes
+  const rootNodes = [];
+  treeMap.forEach(node => {
+    if (!connections.some(connection => connection.target === node.id)) {
+      rootNodes.push(node);
+    }
+  });
+
+  return rootNodes;
+}
+
+const tree = buildTree(array, connections);
+console.log(tree);
